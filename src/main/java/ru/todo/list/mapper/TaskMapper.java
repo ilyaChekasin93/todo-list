@@ -1,6 +1,7 @@
 package ru.todo.list.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.todo.list.dao.entity.TaskEntity;
 import ru.todo.list.dto.TaskDto;
 import ru.todo.list.model.TaskModel;
@@ -11,9 +12,8 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "jsr330")
 public interface TaskMapper {
 
-    default TaskDto taskEntity2TaskDto(TaskEntity taskEntity){
-        return new TaskDto(taskEntity.getName(), taskEntity.getContent());
-    }
+    @Mapping( target = "active", ignore = true)
+    TaskDto taskEntity2TaskDto(TaskEntity taskEntity);
 
     TaskDto taskModel2TaskDto(TaskModel taskModel);
 
