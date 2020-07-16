@@ -38,10 +38,10 @@ public class Application {
                 path(V1, () -> {
                     path(TASK, () -> {
                         get(SLASH + NAME_PARAM, taskRoute.getTaskByName);
+                        delete(SLASH + NAME_PARAM, taskRoute.deleteTaskByName);
                         post(SLASH, taskRoute.createTask);
                         put(SLASH, taskRoute.updateTaskContent);
-                        put(SLASH, taskRoute.closeTask);
-                        delete(SLASH, taskRoute.deleteTask);
+                        put(SLASH, taskRoute.closeTaskByName);
                         path(ALL, () -> {
                             get(ACTIVE, taskRoute.getAllActiveTask);
                             get(CLOSE, taskRoute.getAllClosedTask);

@@ -82,9 +82,7 @@ public class TaskService {
         taskRepo.save(task);
     }
 
-    public void updateTaskContent(TaskDto taskDto) {
-        String name = taskDto.getName();
-        String content = taskDto.getContent();
+    public void updateTaskContent(String name, String content) {
         TaskEntity task = taskRepo.findFirstByName(name)
                 .orElseThrow(() -> new TaskNotFoundException(name));
         task.setContent(content);
@@ -92,8 +90,7 @@ public class TaskService {
         taskRepo.save(task);
     }
 
-    public void closeTask(TaskDto taskDto) {
-        String name = taskDto.getName();
+    public void closeTask(String name) {
         TaskEntity task = taskRepo.findFirstByName(name)
                 .orElseThrow(() -> new TaskNotFoundException(name));
         task.setActive(false);
@@ -101,8 +98,7 @@ public class TaskService {
         taskRepo.save(task);
     }
 
-    public void deleteTask(TaskDto taskDto) {
-        String name = taskDto.getName();
+    public void deleteTask(String name) {
         TaskEntity task = taskRepo.findFirstByName(name)
                 .orElseThrow(() -> new TaskNotFoundException(name));
 

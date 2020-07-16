@@ -13,6 +13,10 @@ public class Path {
 
     public static final String SLASH = "/";
 
-    public static final String TOPIC_PARAM = ":topic";
-    public static final String NAME_PARAM = ":name";
+    public static final String TOPIC_PARAM_KEY = "topic";
+    public static final String NAME_PARAM_KEY = "name";
+    public static final String CONTENT_PARAM_KEY = "content";
+
+    public static final String TOPIC_PARAM = ":" + TOPIC_PARAM_KEY;
+    public static final String NAME_PARAM = ":" + NAME_PARAM_KEY;
 }

@@ -12,8 +12,7 @@ import spark.Route;
 
 import java.util.stream.Collectors;
 
-import static ru.todo.list.constant.Path.NAME_PARAM;
-import static ru.todo.list.constant.Path.TOPIC_PARAM;
+import static ru.todo.list.constant.Path.*;
 import static ru.todo.list.utils.ResponseUtils.*;
 
 
@@ -65,7 +64,7 @@ public class TaskRoute {
     public Route getTaskByTopic = (request, response) ->
             ((QueryParamsHandlerFunction) queryParamsMap ->
                     success(taskService.findAllTaskWithTopic(
-                            request.params(TOPIC_PARAM))
+                            queryParamsMap.value(TOPIC_PARAM_KEY))
                             .stream()
                             .map(task -> taskMapper.taskDto2TaskModel(task))
                             .collect(Collectors.toList())))
@@ -79,25 +78,22 @@ public class TaskRoute {
             }).handleRequest(request, response, TaskModel.class);
 
     public Route updateTaskContent = (request, response) ->
-            ((ModelHandlerFunction<TaskModel>) taskRequest -> {
-                TaskDto taskDto = taskMapper.taskModel2TaskDto(taskRequest);
-                taskService.updateTaskContent(taskDto);
+            ((QueryParamsHandlerFunction) taskRequest -> {
+                taskService.updateTaskContent(taskRequest.value(NAME_PARAM_KEY), taskRequest.value(CONTENT_PARAM_KEY));
                 return updated();
-            }).handleRequest(request, response, TaskModel.class);
+            }).handleRequest(request, response);
 
-    public Route closeTask = (request, response) ->
-            ((ModelHandlerFunction<TaskModel>) taskRequest -> {
-                TaskDto taskDto = taskMapper.taskModel2TaskDto(taskRequest);
-                taskService.closeTask(taskDto);
+    public Route closeTaskByName = (request, response) ->
+            ((QueryParamsHandlerFunction) taskRequest -> {
+                taskService.closeTask(taskRequest.value(NAME_PARAM_KEY));
                 return closed();
-            }).handleRequest(request, response, TaskModel.class);
+            }).handleRequest(request, response);
 
-    public Route deleteTask = (request, response) ->
-            ((ModelHandlerFunction<TaskModel>) taskRequest -> {
-                TaskDto taskDto = taskMapper.taskModel2TaskDto(taskRequest);
-                taskService.deleteTask(taskDto);
+    public Route deleteTaskByName = (request, response) ->
+            ((QueryParamsHandlerFunction) taskRequest -> {
+                taskService.deleteTask(taskRequest.value(NAME_PARAM_KEY));
                 return deleted();
-            }).handleRequest(request, response, TaskModel.class);
+            }).handleRequest(request, response);
 
     public Route deleteAllTaskByTopic = (request, response) ->
             ((ModelHandlerFunction<TaskModel>) taskRequest -> {
@@ -106,8 +102,8 @@ public class TaskRoute {
             }).handleRequest(request, response, TaskModel.class);
 
     public Route deleteAll = (request, response) ->
-            ((ModelHandlerFunction<TaskModel>) taskRequest -> {
+            ((QueryParamsHandlerFunction) taskRequest -> {
                 taskService.deleteAllTask();
                 return deleted();
-            }).handleRequest(request, response, TaskModel.class);
+            }).handleRequest(request, response);
 }
