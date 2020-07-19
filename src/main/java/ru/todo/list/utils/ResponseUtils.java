@@ -8,18 +8,30 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 public class ResponseUtils {
 
+    public static final String SUCCESS_MESSAGE = "Success";
+    public static final String CREATED_MESSAGE = "Successfully created";
+    public static final String UPDATED_MESSAGE = "Successfully updated";
+    public static final String DELETED_MESSAGE = "Successfully deleted";
+
+    public static ResponseModel success(Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setMessage(SUCCESS_MESSAGE);
+        return responseModel;
+    }
+
     public static ResponseModel success(String responseBody, Response response) {
         response.status(HTTP_OK);
         ResponseModel responseModel = new ResponseModel();
         responseModel.setBody(responseBody);
-        responseModel.setMessage("Success");
+        responseModel.setMessage(SUCCESS_MESSAGE);
         return responseModel;
     }
 
     public static ResponseModel created(Response response) {
         response.status(HTTP_CREATED);
         ResponseModel responseModel = new ResponseModel();
-        responseModel.setMessage("Successfully created");
+        responseModel.setMessage(CREATED_MESSAGE);
         return responseModel;
     }
 
@@ -27,7 +39,7 @@ public class ResponseUtils {
         response.status(HTTP_CREATED);
         ResponseModel responseModel = new ResponseModel();
         responseModel.setBody(responseBody);
-        responseModel.setMessage("Successfully created");
+        responseModel.setMessage(CREATED_MESSAGE);
         return responseModel;
     }
 
@@ -35,14 +47,14 @@ public class ResponseUtils {
         response.status(HTTP_OK);
         ResponseModel responseModel = new ResponseModel();
         responseModel.setBody(responseBody);
-        responseModel.setMessage("Successfully updated");
+        responseModel.setMessage(UPDATED_MESSAGE);
         return responseModel;
     }
 
     public static ResponseModel updated(Response response) {
         response.status(HTTP_OK);
         ResponseModel responseModel = new ResponseModel();
-        responseModel.setMessage("Successfully updated");
+        responseModel.setMessage(UPDATED_MESSAGE);
         return responseModel;
     }
 
@@ -50,14 +62,14 @@ public class ResponseUtils {
         response.status(HTTP_OK);
         ResponseModel responseModel = new ResponseModel();
         responseModel.setBody(responseBody);
-        responseModel.setMessage("Successfully deleted");
+        responseModel.setMessage(DELETED_MESSAGE);
         return responseModel;
     }
 
     public static ResponseModel deleted(Response response) {
         response.status(HTTP_OK);
         ResponseModel responseModel = new ResponseModel();
-        responseModel.setMessage("Successfully deleted");
+        responseModel.setMessage(DELETED_MESSAGE);
         return responseModel;
     }
 
