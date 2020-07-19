@@ -3,17 +3,18 @@ package ru.todo.list.function;
 import ru.todo.list.model.RequestModel;
 import spark.QueryParamsMap;
 import spark.Request;
+import spark.Response;
 
 import java.util.Map;
 
-import static ru.todo.list.utils.JsonUtils.jsonObj2String;
 import static ru.todo.list.utils.JsonUtils.json2Obj;
+import static ru.todo.list.utils.JsonUtils.jsonObj2String;
 
 
 @FunctionalInterface
-public interface RequestHandlerFunctionWithRequestBody<T> {
+public interface RequestHandlerFunctionWithoutResponseBody<T> {
 
-    default String handleRequest(Request request, Class<T> clazz) {
+    default void handleRequest(Request request, Class<T> clazz) {
         String strRequestBody = request.body();
         T body = json2Obj(strRequestBody, clazz);
 
@@ -21,21 +22,17 @@ public interface RequestHandlerFunctionWithRequestBody<T> {
         Map<String, String> urlParams = request.params();
 
         RequestModel<T> requestModel = new RequestModel<>(body, urlParams, queryParamsMap);
-        Object responseBody = process(requestModel);
-
-        return jsonObj2String(responseBody);
+        process(requestModel);
     }
 
-    default String handleRequest(Request request) {
+    default void handleRequest(Request request) {
         QueryParamsMap queryParamsMap = request.queryMap();
         Map<String, String> urlParams = request.params();
 
         RequestModel requestModel = new RequestModel(urlParams, queryParamsMap);
-        Object responseBody = process(requestModel);
-
-        return jsonObj2String(responseBody);
+        process(requestModel);
     }
 
-    Object process(RequestModel<T> requestModel);
+    void process(RequestModel<T> requestModel);
 
 }

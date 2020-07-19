@@ -35,25 +35,25 @@ public class Application {
 
     private void initRoutes() {
         path(API, () ->
-                path(V1, () ->
-                        path(TASK, () -> {
-                            get(SLASH + NAME_PARAM, taskRoute.getTaskByName);
-                            delete(SLASH + NAME_PARAM, taskRoute.deleteTaskByName);
-                            post(SLASH, taskRoute.createTask);
-                            put(SLASH, taskRoute.updateTaskContent);
-                            put(SLASH, taskRoute.closeTaskByName);
-                            path(ALL, () -> {
-                                get(ACTIVE, taskRoute.getAllActiveTask);
-                                get(CLOSE, taskRoute.getAllClosedTask);
-                                get(SLASH, taskRoute.getAllTask);
-                                delete(SLASH, taskRoute.deleteAll);
-                                path(TOPIC, () -> {
-                                    delete(SLASH, taskRoute.deleteAllTaskByTopic);
-                                    get(SLASH + TOPIC_PARAM, taskRoute.getTaskByTopic);
-                                });
+                path(V1, () -> {
+                    post(TASK, taskRoute.createTask);
+                    put(TASK, taskRoute.updateTaskContent);
+                    path(TASK, () -> {
+                        get(SLASH + NAME_PARAM, taskRoute.getTaskByName);
+                        delete(SLASH + NAME_PARAM, taskRoute.deleteTaskByName);
+                        put(SLASH + NAME_PARAM, taskRoute.closeTaskByName);
+                        path(ALL, () -> {
+                            get(ACTIVE, taskRoute.getAllActiveTask);
+                            get(CLOSE, taskRoute.getAllClosedTask);
+                            get(SLASH, taskRoute.getAllTask);
+                            delete(SLASH, taskRoute.deleteAll);
+                            path(TOPIC, () -> {
+                                delete(SLASH, taskRoute.deleteAllTaskByTopic);
+                                get(SLASH + TOPIC_PARAM, taskRoute.getTaskByTopic);
                             });
-                        })
-                )
+                        });
+                    });
+                })
         );
     }
 
