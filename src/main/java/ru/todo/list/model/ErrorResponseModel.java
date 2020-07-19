@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponse extends BaseTaskResponse {
+public class ErrorResponseModel extends BaseResponseModel {
 
     private String time;
 

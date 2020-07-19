@@ -1,36 +1,64 @@
 package ru.todo.list.utils;
 
-import ru.todo.list.model.BaseTaskResponse;
-import ru.todo.list.model.TaskModel;
-import ru.todo.list.model.TaskResponse;
+import ru.todo.list.model.ResponseModel;
+import spark.Response;
 
-import java.util.Arrays;
-import java.util.List;
+import static java.net.HttpURLConnection.HTTP_CREATED;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 public class ResponseUtils {
 
-    public static BaseTaskResponse created() {
-        return new BaseTaskResponse("Task successfully created");
+    public static ResponseModel success(String responseBody, Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setBody(responseBody);
+        responseModel.setMessage("Success");
+        return responseModel;
     }
 
-    public static BaseTaskResponse updated() {
-        return new BaseTaskResponse("Task successfully updated");
+    public static ResponseModel created(Response response) {
+        response.status(HTTP_CREATED);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setMessage("Successfully created");
+        return responseModel;
     }
 
-    public static BaseTaskResponse closed() {
-        return new BaseTaskResponse("Task successfully closed");
+    public static ResponseModel created(String responseBody, Response response) {
+        response.status(HTTP_CREATED);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setBody(responseBody);
+        responseModel.setMessage("Successfully created");
+        return responseModel;
     }
 
-    public static BaseTaskResponse deleted() {
-        return new BaseTaskResponse("Task successfully deleted");
+    public static ResponseModel updated(String responseBody, Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setBody(responseBody);
+        responseModel.setMessage("Successfully updated");
+        return responseModel;
     }
 
-    public static TaskResponse success(List<TaskModel> taskModelList) {
-        return new TaskResponse(taskModelList);
+    public static ResponseModel updated(Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setMessage("Successfully updated");
+        return responseModel;
     }
 
-    public static TaskResponse success(TaskModel taskModel) {
-        return new TaskResponse(Arrays.asList(taskModel));
+    public static ResponseModel deleted(String responseBody, Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setBody(responseBody);
+        responseModel.setMessage("Successfully deleted");
+        return responseModel;
+    }
+
+    public static ResponseModel deleted(Response response) {
+        response.status(HTTP_OK);
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setMessage("Successfully deleted");
+        return responseModel;
     }
 
 }

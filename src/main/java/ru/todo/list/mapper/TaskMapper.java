@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "jsr330")
 public interface TaskMapper {
 
-    @Mapping( target = "active", ignore = true)
+    @Mapping( target = "topic", ignore = true)
     TaskDto taskEntity2TaskDto(TaskEntity taskEntity);
 
     TaskDto taskModel2TaskDto(TaskModel taskModel);

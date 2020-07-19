@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class BaseTaskResponse {
 
-    protected String message;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResponseModel extends BaseResponseModel {
+
+    private String body;
 
 }

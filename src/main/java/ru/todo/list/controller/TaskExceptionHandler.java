@@ -2,7 +2,7 @@ package ru.todo.list.controller;
 
 import com.google.inject.Singleton;
 import ru.todo.list.exception.BaseException;
-import ru.todo.list.model.ErrorResponse;
+import ru.todo.list.model.ErrorResponseModel;
 import ru.todo.list.utils.DateUtils;
 import ru.todo.list.utils.JsonUtils;
 import spark.ExceptionHandler;
@@ -14,7 +14,7 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 public class TaskExceptionHandler {
 
     public ExceptionHandler defaultExceptionHandler = (ex, req, resp) -> {
-        ErrorResponse errorResponse = new ErrorResponse();
+        ErrorResponseModel errorResponse = new ErrorResponseModel();
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setTime(DateUtils.getCurrentDate());
 
