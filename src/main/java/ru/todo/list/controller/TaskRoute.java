@@ -43,7 +43,7 @@ public class TaskRoute {
 
     public Route getTaskByName = (request, response) -> {
         ((RequestHandlerFunctionWithResponseBody) requestModel -> {
-            String name = requestModel.getUrlParam(NAME_PARAM);
+            String name = requestModel.getUrlParam(NAME);
             TaskDto taskDto = taskService.findTask(name);
             return taskMapper.taskDto2TaskModel(taskDto);
         }).handleRequest(request, response);
@@ -78,7 +78,7 @@ public class TaskRoute {
     public Route getTaskByTopic = (request, response) -> {
         ((RequestHandlerFunctionWithResponseBody) requestModel ->
                 taskService.findAllTaskWithTopic(
-                        requestModel.getUrlParam(TOPIC_PARAM))
+                        requestModel.getUrlParam(TOPIC))
                         .stream()
                         .map(task -> taskMapper.taskDto2TaskModel(task))
                         .collect(Collectors.toList()))
@@ -97,9 +97,9 @@ public class TaskRoute {
         return created(response);
     };
 
-    public Route updateTaskContent = (request, response) -> {
+    public Route updateTaskContentByName = (request, response) -> {
         ((RequestHandlerFunctionWithoutResponseBody<TaskContentModel>) requestModel -> {
-            String name = requestModel.getUrlParam(NAME_PARAM);
+            String name = requestModel.getUrlParam(NAME);
             String param = requestModel.getBody().getContent();
             taskService.updateTaskContent(name, param);
         }).handleRequest(request, TaskContentModel.class);
@@ -109,7 +109,7 @@ public class TaskRoute {
 
     public Route closeTaskByName = (request, response) -> {
         ((RequestHandlerFunctionWithoutResponseBody) requestModel -> {
-            String name = requestModel.getUrlParam(NAME_PARAM);
+            String name = requestModel.getUrlParam(NAME);
             taskService.closeTask(name);
         }).handleRequest(request);
 
@@ -118,7 +118,7 @@ public class TaskRoute {
 
     public Route deleteTaskByName = (request, response) -> {
         ((RequestHandlerFunctionWithoutResponseBody) requestModel -> {
-            String name = requestModel.getUrlParam(NAME_PARAM);
+            String name = requestModel.getUrlParam(NAME);
             taskService.deleteTask(name);
         }).handleRequest(request);
 
@@ -127,14 +127,14 @@ public class TaskRoute {
 
     public Route deleteAllTaskByTopic = (request, response) -> {
         ((RequestHandlerFunctionWithoutResponseBody) requestModel -> {
-            String topic = requestModel.getUrlParam(TOPIC_PARAM);
+            String topic = requestModel.getUrlParam(TOPIC);
             taskService.deleteAllTaskWithTopic(topic);
         }).handleRequest(request);
 
         return deleted(response);
     };
 
-    public Route deleteAll = (request, response) -> {
+    public Route deleteAllTask = (request, response) -> {
         ((RequestHandlerFunctionWithoutResponseBody) requestModel ->
                 taskService.deleteAllTask()).handleRequest(request);
 

@@ -7,6 +7,8 @@ import spark.QueryParamsMap;
 
 import java.util.Map;
 
+import static ru.todo.list.constant.Path.PARAM_PREFIX;
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestModel<T> {
@@ -24,7 +26,7 @@ public class RequestModel<T> {
     }
 
     public String getUrlParam(String name){
-        return urlParams.get(":" + name);
+        return urlParams.get(PARAM_PREFIX + name);
     }
 
     public String getQueryParam(String name){

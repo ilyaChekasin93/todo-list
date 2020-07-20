@@ -34,25 +34,25 @@ public class Application {
     }
 
     private void initRoutes() {
-        path(API, () ->
-                path(V1, () -> {
+        path(SLASH + API, () ->
+                path(SLASH + V1 + SLASH, () -> {
                     post(TASK, taskRoute.createTask);
-                    put(TASK, taskRoute.updateTaskContent);
-                    path(TASK, () -> {
-                        get(SLASH + NAME_PARAM, taskRoute.getTaskByName);
-                        delete(SLASH + NAME_PARAM, taskRoute.deleteTaskByName);
-                        put(SLASH + NAME_PARAM, taskRoute.closeTaskByName);
-                        path(ALL, () -> {
-                            get(ACTIVE, taskRoute.getAllActiveTask);
-                            get(CLOSE, taskRoute.getAllClosedTask);
-                            get(SLASH, taskRoute.getAllTask);
-                            delete(SLASH, taskRoute.deleteAll);
-                            path(TOPIC, () -> {
-                                delete(SLASH, taskRoute.deleteAllTaskByTopic);
-                                get(SLASH + TOPIC_PARAM, taskRoute.getTaskByTopic);
-                            });
-                        });
-                    });
+                    path(TASK, () ->
+                            path(SLASH, () -> {
+                                get(NAME + SLASH + PARAM_PREFIX + NAME, taskRoute.getTaskByName);
+                                put(NAME + SLASH + PARAM_PREFIX + NAME, taskRoute.updateTaskContentByName);
+                                delete(NAME + SLASH + PARAM_PREFIX + NAME, taskRoute.deleteTaskByName);
+                                put(NAME + SLASH + PARAM_PREFIX + NAME + SLASH + CLOSE, taskRoute.closeTaskByName);
+                                get(ALL, taskRoute.getAllTask);
+                                delete(ALL, taskRoute.deleteAllTask);
+                                path(ALL + SLASH, () -> {
+                                    get(ACTIVE, taskRoute.getAllActiveTask);
+                                    get(CLOSE, taskRoute.getAllClosedTask);
+                                    get(TOPIC + SLASH + PARAM_PREFIX + TOPIC, taskRoute.getTaskByTopic);
+                                    delete(TOPIC + SLASH + PARAM_PREFIX + TOPIC, taskRoute.deleteAllTaskByTopic);
+                                });
+                            })
+                    );
                 })
         );
     }
