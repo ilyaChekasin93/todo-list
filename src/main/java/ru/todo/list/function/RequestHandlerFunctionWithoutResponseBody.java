@@ -3,12 +3,10 @@ package ru.todo.list.function;
 import ru.todo.list.model.RequestModel;
 import spark.QueryParamsMap;
 import spark.Request;
-import spark.Response;
 
 import java.util.Map;
 
 import static ru.todo.list.utils.JsonUtils.json2Obj;
-import static ru.todo.list.utils.JsonUtils.jsonObj2String;
 
 
 @FunctionalInterface
