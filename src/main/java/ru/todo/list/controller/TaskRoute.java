@@ -45,6 +45,7 @@ public class TaskRoute {
         ((RequestHandlerFunctionWithResponseBody) requestModel -> {
             String name = requestModel.getUrlParam(NAME);
             TaskDto taskDto = taskService.findTask(name);
+
             return taskMapper.taskDto2TaskModel(taskDto);
         }).handleRequest(request, response);
 

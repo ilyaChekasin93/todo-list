@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public abstract class AbstractRepo<T extends BaseEntity> implements Repository<T> {
 
-    protected Dao<T, Long> dao;
+    private Dao<T, Long> dao;
 
     private Class baseEntityClass;
 

@@ -9,11 +9,11 @@ import java.util.Map;
 
 import static ru.todo.list.constant.Path.PARAM_PREFIX;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestModel<T> {
 
-    @Getter
     private T body;
 
     private Map<String, String> urlParams;
