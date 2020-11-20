@@ -51,8 +51,7 @@ public class Application {
                             delete(TOPIC + SLASH + PARAM_PREFIX + TOPIC, taskRoute.deleteAllTaskByTopic);
                         });
                     });
-                })
-        );
+                }));
     }
 
     private void initExceptionHandlers() {

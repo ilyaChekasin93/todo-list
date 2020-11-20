@@ -110,7 +110,7 @@ public class TaskService {
                 .orElseThrow(() -> new TopicNotFoundException(topicName));
 
         TaskEntity task = taskRepo.findFirstByTopic(topic)
-                .orElseThrow(() -> new TaskNotFoundException());
+                .orElseThrow(TaskNotFoundException::new);
 
         taskRepo.delete(task);
     }

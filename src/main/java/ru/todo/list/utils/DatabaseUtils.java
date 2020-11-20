@@ -13,6 +13,7 @@ import java.util.Set;
 
 import static ru.todo.list.constant.AppConst.APP_ROOT_PATH;
 
+
 @Singleton
 public class DatabaseUtils {
 

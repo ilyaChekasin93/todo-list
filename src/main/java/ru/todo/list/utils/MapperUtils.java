@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import static ru.todo.list.constant.AppConst.APP_ROOT_PATH;
 
+
 public class MapperUtils {
 
     public static final String IMPL_STRING = "Impl";
@@ -26,7 +27,7 @@ public class MapperUtils {
     }
 
     private static Set<Class<?>> findAllMapperInterfaceType(Set<Class<?>> allMapperType) {
-        return allMapperType.stream().filter(m -> isInterface(m)).collect(Collectors.toSet());
+        return allMapperType.stream().filter(MapperUtils::isInterface).collect(Collectors.toSet());
     }
 
     private static Set<Class<?>> findAllMapperImplType(Set<Class<?>> allMapperType) {

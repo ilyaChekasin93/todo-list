@@ -23,7 +23,7 @@ public interface RequestHandlerFunctionWithResponseBody<T> {
 
         RequestModel<T> requestModel = new RequestModel<>(body, urlParams, queryParamsMap);
         Object responseBody = process(requestModel);
-        String strResponseBody =jsonObj2String(responseBody);
+        String strResponseBody = jsonObj2String(responseBody);
 
         response.body(strResponseBody);
     }

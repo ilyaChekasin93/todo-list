@@ -9,6 +9,7 @@ import ru.todo.list.dao.repo.impl.TaskRepoImpl;
 import ru.todo.list.dao.repo.impl.TopicRepoImpl;
 import ru.todo.list.utils.MapperUtils;
 
+
 public class AppModule extends AbstractModule {
 
     protected void configure() {
@@ -19,8 +20,7 @@ public class AppModule extends AbstractModule {
     }
 
     private void bindAllMappers() {
-        MapperUtils.getMapperTypes().entrySet().stream()
-                .forEach(m -> bind(m.getKey()).to(m.getValue()).in(Singleton.class));
+        MapperUtils.getMapperTypes().forEach((key, value) -> bind(key).to(value).in(Singleton.class));
     }
 
 }

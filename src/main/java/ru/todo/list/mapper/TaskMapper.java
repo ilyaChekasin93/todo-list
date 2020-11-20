@@ -18,7 +18,7 @@ public interface TaskMapper {
     TaskDto taskModel2TaskDto(TaskModel taskModel);
 
     default List<TaskDto> taskEntities2TaskDtoList(List<TaskEntity> taskEntities) {
-        return taskEntities.stream().map(e -> taskEntity2TaskDto(e)).collect(Collectors.toList());
+        return taskEntities.stream().map(this::taskEntity2TaskDto).collect(Collectors.toList());
     }
 
     TaskModel taskDto2TaskModel(TaskDto taskDto);

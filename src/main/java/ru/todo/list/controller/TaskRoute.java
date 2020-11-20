@@ -75,7 +75,6 @@ public class TaskRoute {
         return success(response);
     };
 
-
     public Route getTaskByTopic = (request, response) -> {
         ((RequestHandlerFunctionWithResponseBody) requestModel ->
                 taskService.findAllTaskWithTopic(
