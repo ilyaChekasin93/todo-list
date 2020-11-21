@@ -20,9 +20,9 @@ import java.util.Optional;
 
 public abstract class AbstractRepo<T extends BaseEntity> implements Repository<T> {
 
-    private Dao<T, Long> dao;
+    private final Dao<T, Long> dao;
 
-    private Class baseEntityClass;
+    private final Class baseEntityClass;
 
     public AbstractRepo() {
         baseEntityClass = BaseEntity.class;

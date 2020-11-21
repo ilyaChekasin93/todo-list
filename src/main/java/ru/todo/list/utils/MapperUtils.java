@@ -2,6 +2,7 @@ package ru.todo.list.utils;
 
 import org.mapstruct.Mapper;
 import org.reflections.Reflections;
+import ru.todo.list.exception.MapperImplNotFoundException;
 
 import java.util.Map;
 import java.util.Set;
@@ -20,10 +21,7 @@ public class MapperUtils {
         Set<Class<?>> allMapperImplType = findAllMapperImplType(allMapperType);
 
         return allMapperInterfaceType.stream()
-                .collect(Collectors.toMap(
-                        m -> m,
-                        m -> findMapperImplType(m, allMapperImplType)
-                ));
+                .collect(Collectors.toMap(m -> m, m -> findMapperImplType(m, allMapperImplType)));
     }
 
     private static Set<Class<?>> findAllMapperInterfaceType(Set<Class<?>> allMapperType) {
@@ -41,10 +39,11 @@ public class MapperUtils {
     }
 
     private static Class findMapperImplType(Class<?> interfaceMapperType, Set<Class<?>> allMapperImplType) {
+        String mapperImplName = interfaceMapperType.getSimpleName() + IMPL_STRING;
         return allMapperImplType.stream()
-                .filter(m -> m.getSimpleName().equals(interfaceMapperType.getSimpleName() + IMPL_STRING))
+                .filter(m -> m.getSimpleName().equals(mapperImplName))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new MapperImplNotFoundException(mapperImplName));
     }
 
     private static boolean isInterface(Class clazz) {
